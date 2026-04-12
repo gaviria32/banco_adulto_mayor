@@ -1,0 +1,7 @@
+{
+  "name": "Banco para el adulto mayor",
+  "description": "Una aplicación bancaria moderna, segura y accesible.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

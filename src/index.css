@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: var(--app-primary);
+  --color-primary-container: var(--app-primary-container);
+  --color-secondary: var(--app-secondary);
+  --color-secondary-container: var(--app-secondary-container);
+  --color-error: var(--app-error);
+  --color-error-container: #ffdad6;
+  --color-background: #fcf9f8;
+  --color-surface: #fcf9f8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0eded;
+  --color-surface-container-high: #eae7e7;
+  --color-surface-container-highest: #e5e2e1;
+  --color-on-surface: #1b1c1c;
+  --color-on-surface-variant: #424752;
+  --color-outline: #737783;
+  --color-outline-variant: #c3c6d4;
+  --color-primary-fixed: var(--app-primary-fixed);
+  --color-secondary-fixed: var(--app-secondary-fixed);
+}
+
+@layer base {
+  :root {
+    --app-primary: #003575;
+    --app-primary-container: #004ba0;
+    --app-primary-fixed: #d8e2ff;
+    --app-secondary: #046b5e;
+    --app-secondary-container: #9defde;
+    --app-secondary-fixed: #a0f2e1;
+    --app-error: #ba1a1a;
+  }
+  
+  :root[data-daltonism="protanopia"] {
+    --app-primary: #005A9C;
+    --app-primary-container: #337EBB;
+    --app-primary-fixed: #C2E0FF;
+    --app-secondary: #D4A300; 
+    --app-secondary-container: #FFE58A;
+    --app-secondary-fixed: #FFE58A;
+    --app-error: #E55B00;
+  }
+
+  :root[data-daltonism="deuteranopia"] {
+    --app-primary: #005BB5;
+    --app-primary-container: #1C7ED6;
+    --app-primary-fixed: #D0EBFF;
+    --app-secondary: #C79A00;
+    --app-secondary-container: #FFEC99;
+    --app-secondary-fixed: #FFEC99;
+    --app-error: #E8590C;
+  }
+
+  :root[data-daltonism="tritanopia"] {
+    --app-primary: #E03131;
+    --app-primary-container: #F03E3E;
+    --app-primary-fixed: #FFE3E3;
+    --app-secondary: #0C8599;
+    --app-secondary-container: #99E9F2;
+    --app-secondary-fixed: #99E9F2;
+    --app-error: #111111;
+  }
+}
+
+@layer base {
+  html {
+    font-size: 18px;
+  }
+  
+  body {
+    @apply bg-background text-on-surface font-sans antialiased;
+  }
+}
+
+.scanner-mask {
+  background: rgba(0, 0, 0, 0.6);
+  clip-path: polygon(0% 0%, 0% 100%, 10% 100%, 10% 25%, 90% 25%, 90% 65%, 10% 65%, 10% 100%, 100% 100%, 100% 0%);
+}
