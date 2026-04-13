@@ -30,7 +30,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
 
       {/* Smart Reminder / Notifications system */}
       <AnimatePresence>
-        {showReminder && showPaymentReminders && (
+        {showReminder && showPaymentReminders && !isMinimalMode && (
           <motion.div 
             initial={{ opacity: 0, y: -20, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
@@ -126,30 +126,32 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
       </section>
 
       {/* Recent Activity Section */}
-      <section className="bg-surface-container-low rounded-[2.5rem] p-8">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-bold text-on-surface">Lo que hizo recientemente</h3>
-          <History className="text-primary w-8 h-8" />
-        </div>
-        <div className="flex flex-col gap-4">
-          {MOCK_TRANSACTIONS.slice(0, 3).map((tx) => (
-            <div key={tx.id} className="bg-surface-container-lowest p-4 sm:p-6 rounded-2xl flex items-center justify-between shadow-sm">
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="bg-secondary/10 text-secondary p-2 sm:p-3 rounded-full shrink-0">
-                  {tx.type === 'INCOME' ? <Wallet className="w-5 h-5 sm:w-6 sm:h-6" /> : <UserIcon className="w-5 h-5 sm:w-6 sm:h-6" />}
+      {!isMinimalMode && (
+        <section className="bg-surface-container-low rounded-[2.5rem] p-8">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-2xl font-bold text-on-surface">Lo que hizo recientemente</h3>
+            <History className="text-primary w-8 h-8" />
+          </div>
+          <div className="flex flex-col gap-4">
+            {MOCK_TRANSACTIONS.slice(0, 3).map((tx) => (
+              <div key={tx.id} className="bg-surface-container-lowest p-4 sm:p-6 rounded-2xl flex items-center justify-between shadow-sm">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="bg-secondary/10 text-secondary p-2 sm:p-3 rounded-full shrink-0">
+                    {tx.type === 'INCOME' ? <Wallet className="w-5 h-5 sm:w-6 sm:h-6" /> : <UserIcon className="w-5 h-5 sm:w-6 sm:h-6" />}
+                  </div>
+                  <div>
+                    <p className="text-lg sm:text-xl font-bold text-on-surface leading-tight">{tx.title}</p>
+                    <p className="text-on-surface-variant text-xs sm:text-sm">{tx.date}, {tx.time}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-lg sm:text-xl font-bold text-on-surface leading-tight">{tx.title}</p>
-                  <p className="text-on-surface-variant text-xs sm:text-sm">{tx.date}, {tx.time}</p>
-                </div>
+                <span className={`text-lg sm:text-xl font-bold ${tx.amount < 0 ? 'text-error' : 'text-secondary'} shrink-0`}>
+                  {tx.amount < 0 ? '-' : '+'}${Math.abs(tx.amount).toLocaleString()}
+                </span>
               </div>
-              <span className={`text-lg sm:text-xl font-bold ${tx.amount < 0 ? 'text-error' : 'text-secondary'} shrink-0`}>
-                {tx.amount < 0 ? '-' : '+'}${Math.abs(tx.amount).toLocaleString()}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Decorative Image */}
       <div className="rounded-[2rem] overflow-hidden relative h-64 group">
