@@ -7,11 +7,20 @@ import { Screen } from '../../types';
 interface PayBillFlowProps {
   currentScreen: Screen;
   onNavigate: (screen: Screen) => void;
-  onComplete: () => void;
+  onComplete: (amount: string, company: string) => void;
   onCancel: () => void;
+  onSimulateSystemError: () => void;
+  onSimulateUserError: () => void;
 }
 
-export default function PayBillFlow({ currentScreen, onNavigate, onComplete, onCancel }: PayBillFlowProps) {
+export default function PayBillFlow({ 
+  currentScreen, 
+  onNavigate, 
+  onComplete, 
+  onCancel,
+  onSimulateSystemError,
+  onSimulateUserError
+}: PayBillFlowProps) {
   const step = currentScreen === 'PAY_STEP_1' ? 1 : 2;
   const [docNumber, setDocNumber] = useState('');
 
@@ -192,12 +201,24 @@ export default function PayBillFlow({ currentScreen, onNavigate, onComplete, onC
             </div>
 
             <button 
-              onClick={onComplete}
+              onClick={() => onComplete('4.250,00', 'Empresa de Energía')}
               className="w-full h-16 sm:h-[96px] bg-gradient-to-r from-primary to-primary-container text-white rounded-xl flex items-center justify-center gap-3 sm:gap-4 active:scale-95 transition-all shadow-xl hover:opacity-90"
             >
               <CreditCard className="w-6 h-6 sm:w-10 sm:h-10 fill-current" />
               <span className="text-xl sm:text-3xl font-extrabold tracking-tight">Pagar ahora</span>
             </button>
+
+            <div className="pt-8 border-t border-outline-variant/30 mt-8 space-y-4">
+              <p className="text-error font-bold text-center text-sm uppercase tracking-wide">Área de pruebas (Demo)</p>
+              <div className="flex flex-col gap-2">
+                <button onClick={onSimulateUserError} className="w-full bg-error/10 text-error rounded-xl py-3 font-bold active:scale-95 transition-transform text-sm hover:bg-error/20">
+                  Simular error del usuario (Saldo insuficiente)
+                </button>
+                <button onClick={onSimulateSystemError} className="w-full bg-error/10 text-error rounded-xl py-3 font-bold active:scale-95 transition-transform text-sm hover:bg-error/20">
+                  Simular error del sistema (Servicio caído)
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -80,8 +80,26 @@ export default function App() {
           <PayBillFlow 
             currentScreen={currentScreen}
             onNavigate={handleNavigate}
-            onComplete={() => handleNavigate('HOME')} 
+            onComplete={(amount, company) => {
+              setPopup({
+                type: 'success',
+                title: 'Pago Realizado',
+                message: `Se ha pagado exitosamente un total de $${amount} COP a ${company}.`
+              });
+              handleNavigate('HOME');
+            }} 
             onCancel={() => handleNavigate('HOME')} 
+            onSimulateSystemError={() => setPopup({
+               type: 'system_error',
+               title: 'Error de Conexión',
+               message: 'No pudimos conectar con los servicios de recaudo en este momento.',
+               resolutionTime: 'Por favor intente de nuevo en unos minutos.'
+            })}
+            onSimulateUserError={() => setPopup({
+               type: 'user_error',
+               title: 'Saldo Insuficiente',
+               message: 'No cuenta con el dinero necesario para realizar el pago de esta factura.'
+            })}
           />
         );
       case 'RECHARGE_STEP_1':
