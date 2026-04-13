@@ -28,7 +28,7 @@ export default function Layout({
   const isAuthScreen = currentScreen === 'LOGIN';
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative">
       {/* Top App Bar */}
       {!isAuthScreen && (
         <header className="w-full sticky top-0 z-50 bg-background/80 backdrop-blur-md">
@@ -42,7 +42,7 @@ export default function Layout({
                   <ArrowLeft className="w-8 h-8 text-primary" />
                 </button>
               )}
-              <h1 className="font-bold text-2xl md:text-3xl tracking-tight text-primary">
+              <h1 className="font-bold text-xl sm:text-2xl md:text-3xl tracking-tight text-primary truncate max-w-[200px] sm:max-w-none">
                 {title || "Mi Banco"}
               </h1>
             </div>
@@ -61,8 +61,8 @@ export default function Layout({
 
       {/* Main Content */}
       <main className={cn(
-        "flex-grow w-full max-w-2xl mx-auto px-6 pb-32",
-        isAuthScreen ? "pt-0" : "pt-8"
+        "flex-grow w-full max-w-2xl mx-auto px-4 sm:px-6 pb-36 sm:pb-40 rounded-b-[3rem]",
+        isAuthScreen ? "pt-0" : "pt-4 sm:pt-8"
       )}>
         {children}
       </main>
@@ -132,7 +132,7 @@ function NavItem({
       <div className={cn("mb-1", active && "[&>svg]:fill-current")}>
         {icon}
       </div>
-      <span className={cn("text-sm md:text-base", active ? "font-bold" : "font-semibold")}>
+      <span className={cn("text-[0.65rem] sm:text-sm", active ? "font-bold" : "font-semibold")}>
         {label}
       </span>
     </button>

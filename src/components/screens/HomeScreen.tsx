@@ -67,10 +67,10 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
       <motion.section 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-surface-container-lowest rounded-[2rem] p-10 flex flex-col gap-4 text-center shadow-sm"
+        className="bg-surface-container-lowest rounded-[2rem] p-6 sm:p-10 flex flex-col gap-2 sm:gap-4 text-center shadow-sm"
       >
-        <h2 className="text-on-surface-variant text-xl md:text-2xl font-medium tracking-tight">Su saldo es:</h2>
-        <div className="text-primary text-[3.5rem] md:text-[4.5rem] font-black leading-none tracking-tighter">
+        <h2 className="text-on-surface-variant text-lg sm:text-xl md:text-2xl font-medium tracking-tight">Su saldo es:</h2>
+        <div className="text-primary text-4xl sm:text-6xl md:text-[4.5rem] font-black leading-none tracking-tighter">
           $1.250.000
         </div>
         <div className="mt-4 inline-flex items-center justify-center gap-2 text-secondary font-bold text-lg">
@@ -133,17 +133,17 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
         </div>
         <div className="flex flex-col gap-4">
           {MOCK_TRANSACTIONS.slice(0, 3).map((tx) => (
-            <div key={tx.id} className="bg-surface-container-lowest p-6 rounded-2xl flex items-center justify-between shadow-sm">
-              <div className="flex items-center gap-4">
-                <div className="bg-secondary/10 text-secondary p-3 rounded-full">
-                  {tx.type === 'INCOME' ? <Wallet className="w-6 h-6" /> : <UserIcon className="w-6 h-6" />}
+            <div key={tx.id} className="bg-surface-container-lowest p-4 sm:p-6 rounded-2xl flex items-center justify-between shadow-sm">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="bg-secondary/10 text-secondary p-2 sm:p-3 rounded-full shrink-0">
+                  {tx.type === 'INCOME' ? <Wallet className="w-5 h-5 sm:w-6 sm:h-6" /> : <UserIcon className="w-5 h-5 sm:w-6 sm:h-6" />}
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-on-surface">{tx.title}</p>
-                  <p className="text-on-surface-variant text-sm">{tx.date}, {tx.time}</p>
+                  <p className="text-lg sm:text-xl font-bold text-on-surface leading-tight">{tx.title}</p>
+                  <p className="text-on-surface-variant text-xs sm:text-sm">{tx.date}, {tx.time}</p>
                 </div>
               </div>
-              <span className={`text-xl font-bold ${tx.amount < 0 ? 'text-error' : 'text-secondary'}`}>
+              <span className={`text-lg sm:text-xl font-bold ${tx.amount < 0 ? 'text-error' : 'text-secondary'} shrink-0`}>
                 {tx.amount < 0 ? '-' : '+'}${Math.abs(tx.amount).toLocaleString()}
               </span>
             </div>
@@ -182,14 +182,14 @@ function RecentFunctionCard({
     <motion.button 
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className={`flex flex-col items-center justify-center p-6 rounded-[2.5rem] text-center transition-all h-[180px] shadow-md border-[3px] ${
+      className={`flex flex-col items-center justify-center p-4 sm:p-6 rounded-[2.5rem] text-center transition-all min-h-[140px] sm:min-h-[180px] h-auto shadow-md border-[3px] ${
         fullWidth ? 'col-span-2 sm:col-span-1' : ''
-      } bg-white border-outline-variant/20 hover:border-primary/40 text-on-surface`}
+      } bg-white border-outline-variant/20 hover:border-primary/40 text-on-surface break-words`}
     >
-      <div className="mb-4 text-primary bg-primary/5 p-4 rounded-2xl">
-        {icon}
+      <div className="mb-2 sm:mb-4 text-primary bg-primary/5 p-3 sm:p-4 rounded-2xl">
+        <div className="scale-75 sm:scale-100">{icon}</div>
       </div>
-      <span className="text-[1.25rem] font-black leading-tight px-2">{title}</span>
+      <span className="text-lg sm:text-[1.25rem] font-black leading-tight px-2">{title}</span>
     </motion.button>
   );
 }

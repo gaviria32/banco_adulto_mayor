@@ -77,9 +77,9 @@ export default function SendMoneyFlow({
             exit={{ opacity: 0, x: -20 }}
             className="space-y-10"
           >
-            <div className="text-center mb-12">
-              <h2 className="text-[2.5rem] font-bold leading-tight tracking-tight text-on-surface mb-4">Paso 1: ¿A quién le envía?</h2>
-              <p className="text-on-surface-variant text-[1.125rem]">Busque un contacto o seleccione uno de sus frecuentes.</p>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-2xl sm:text-4xl md:text-[2.5rem] font-bold leading-tight tracking-tight text-on-surface mb-2 sm:mb-4 px-2">Paso 1: ¿A quién le envía?</h2>
+              <p className="text-on-surface-variant text-base sm:text-[1.125rem] px-4">Busque un contacto o seleccione uno de sus frecuentes.</p>
             </div>
 
             <div className="relative group">
@@ -93,7 +93,7 @@ export default function SendMoneyFlow({
 
             <section>
               <h3 className="text-[1.5rem] font-bold text-on-surface mb-8">Contactos frecuentes</h3>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 {MOCK_CONTACTS.map((contact) => (
                   <button 
                     key={contact.id}
@@ -101,12 +101,12 @@ export default function SendMoneyFlow({
                       setSelectedContact(contact);
                       handleNext();
                     }}
-                    className="flex flex-col items-center justify-center p-8 bg-surface-container-lowest rounded-[2rem] shadow-[0_12px_40px_rgba(27,28,28,0.06)] active:scale-95 transition-all group border-2 border-transparent hover:border-primary/20"
+                    className="flex flex-col items-center justify-center p-4 sm:p-8 bg-surface-container-lowest rounded-[2rem] shadow-sm active:scale-95 transition-all group border-2 border-transparent hover:border-primary/20"
                   >
-                    <div className="w-24 h-24 rounded-full overflow-hidden mb-4 ring-4 ring-primary-fixed">
+                    <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-3 sm:mb-4 ring-2 sm:ring-4 ring-primary-fixed shrink-0">
                       <img src={contact.image} alt={contact.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     </div>
-                    <span className="text-[1.375rem] font-bold text-on-surface group-hover:text-primary">{contact.name}</span>
+                    <span className="text-lg sm:text-[1.375rem] font-bold text-on-surface group-hover:text-primary leading-tight text-center break-words w-full px-1">{contact.name}</span>
                   </button>
                 ))}
               </div>
@@ -119,7 +119,7 @@ export default function SendMoneyFlow({
                   className="w-full min-h-[80px] bg-secondary-container/30 text-secondary border-2 border-secondary/20 hover:border-secondary transition-all rounded-[1.5rem] flex items-center justify-center gap-4 active:scale-95 p-4 shadow-sm"
                 >
                   <BookUser className="w-8 h-8 shrink-0" />
-                  <span className="text-[1.25rem] font-bold text-left leading-tight">Sincronizar contactos de mi teléfono celular</span>
+                  <span className="text-lg sm:text-[1.25rem] font-bold text-left leading-tight break-words">Sincronizar contactos de mi teléfono celular</span>
                 </button>
               ) : (
                 <div className="space-y-6">
@@ -162,8 +162,8 @@ export default function SendMoneyFlow({
             className="space-y-8"
           >
             <div>
-              <p className="text-secondary font-bold text-[1rem] uppercase tracking-widest mb-2">Paso 2 de 3</p>
-              <h2 className="font-bold text-[2rem] leading-tight text-on-surface">¿Cuánto desea enviar?</h2>
+              <p className="text-secondary font-bold text-sm sm:text-[1rem] uppercase tracking-widest mb-1 sm:mb-2 text-center sm:text-left">Paso 2 de 3</p>
+              <h2 className="font-bold text-xl sm:text-[2rem] leading-tight text-on-surface text-center sm:text-left">¿Cuánto desea enviar?</h2>
             </div>
 
             <div className="bg-surface-container-lowest rounded-xl p-6 flex items-center gap-4 shadow-sm border border-outline-variant/15">
@@ -176,32 +176,32 @@ export default function SendMoneyFlow({
               </div>
             </div>
 
-            <div className="flex flex-col items-center mb-10">
-              <div className="text-center mb-4">
-                <span className="text-primary font-bold text-[2rem] mr-2">$</span>
-                <span className="text-on-surface font-extrabold text-[3.5rem] tracking-tighter">{amount}</span>
-                <span className="text-on-surface-variant font-bold text-[1.375rem] ml-2">COP</span>
+            <div className="flex flex-col items-center mb-6 sm:mb-10">
+              <div className="text-center mb-2 sm:mb-4">
+                <span className="text-primary font-bold text-2xl sm:text-[2rem] mr-2">$</span>
+                <span className="text-on-surface font-extrabold text-4xl sm:text-[3.5rem] tracking-tighter">{amount}</span>
+                <span className="text-on-surface-variant font-bold text-lg sm:text-[1.375rem] ml-2">COP</span>
               </div>
-              <div className="w-full h-1 bg-primary-container/20 rounded-full overflow-hidden">
+              <div className="w-3/4 sm:w-full h-1 bg-primary-container/20 rounded-full overflow-hidden">
                 <div className="w-1/2 h-full bg-primary rounded-full" />
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4">
               {['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0'].map((num) => (
                 <button 
                   key={num}
                   onClick={() => handleNumberClick(num)}
-                  className="h-20 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-xl flex items-center justify-center text-[2rem] font-bold text-on-surface active:scale-95"
+                  className="h-14 sm:h-20 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-xl flex items-center justify-center text-xl sm:text-[2rem] font-bold text-on-surface active:scale-95"
                 >
                   {num}
                 </button>
               ))}
               <button 
                 onClick={handleBackspace}
-                className="h-20 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-xl flex items-center justify-center text-primary active:scale-95"
+                className="h-14 sm:h-20 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-xl flex items-center justify-center text-primary active:scale-95"
               >
-                <Delete className="w-10 h-10" />
+                <Delete className="w-8 h-8 sm:w-10 sm:h-10" />
               </button>
             </div>
 

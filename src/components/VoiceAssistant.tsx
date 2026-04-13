@@ -58,7 +58,7 @@ export default function VoiceAssistant({ currentScreen }: { currentScreen: Scree
   return (
     <button 
       onClick={handleToggle}
-      className={`fixed bottom-[90px] right-6 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all z-[100] ${
+      className={`fixed bottom-[95px] right-4 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-2xl flex items-center justify-center transition-all z-[100] ${
         isPlaying 
           ? 'bg-secondary text-white scale-110 shadow-[0_0_20px_rgba(4,107,94,0.5)]' 
           : 'bg-primary-container text-white active:scale-95'

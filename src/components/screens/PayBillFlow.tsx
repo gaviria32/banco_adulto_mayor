@@ -29,52 +29,70 @@ export default function PayBillFlow({ currentScreen, onNavigate, onComplete, onC
             className="space-y-8"
           >
             <div>
-              <span className="text-secondary font-bold text-[1rem] uppercase tracking-widest">Paso 1 de 2</span>
-              <h2 className="text-[2.5rem] font-extrabold leading-tight tracking-tight mt-1">Escanear factura</h2>
-              <p className="text-[1.375rem] text-on-surface-variant max-w-2xl mt-4">
+              <span className="text-secondary font-bold text-sm sm:text-[1rem] uppercase tracking-widest text-center block sm:text-left">Paso 1 de 2</span>
+              <h2 className="text-2xl sm:text-4xl md:text-[2.5rem] font-extrabold leading-tight tracking-tight mt-1 text-center sm:text-left">Escanear factura</h2>
+              <p className="text-base sm:text-[1.375rem] text-on-surface-variant max-w-2xl mt-3 sm:mt-4 text-center sm:text-left px-4 sm:px-0">
                 Busque el código de barras o el código QR en su recibo impreso.
               </p>
-            </div>
-
-            <div className="relative w-full aspect-[4/5] md:aspect-video rounded-[2.5rem] overflow-hidden bg-black shadow-2xl border-[8px] border-surface-container">
+            </div>            <div className="relative w-full aspect-[4/5] sm:aspect-video rounded-[2.5rem] overflow-hidden bg-black shadow-2xl border-[4px] sm:border-[8px] border-surface-container-high group">
+              {/* Background Camera Feed (Mock) */}
               <div 
-                className="absolute inset-0 bg-cover bg-center opacity-90" 
+                className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:scale-105 transition-transform duration-1000" 
                 style={{ backgroundImage: "url('https://picsum.photos/seed/bill/800/1000')" }}
               />
               
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <div className="relative w-3/4 h-2/5 border-[4px] border-white/40 rounded-3xl">
-                  <div className="absolute -top-1 -left-1 w-12 h-12 border-t-8 border-l-8 border-secondary rounded-tl-2xl" />
-                  <div className="absolute -top-1 -right-1 w-12 h-12 border-t-8 border-r-8 border-secondary rounded-tr-2xl" />
-                  <div className="absolute -bottom-1 -left-1 w-12 h-12 border-b-8 border-l-8 border-secondary rounded-bl-2xl" />
-                  <div className="absolute -bottom-1 -right-1 w-12 h-12 border-b-8 border-r-8 border-secondary rounded-br-2xl" />
+              {/* Modern Scanner Mask Overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                {/* Darkened edges */}
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+                
+                {/* Viewing Area (The "Hole") */}
+                <div className="relative w-[85%] sm:w-3/4 h-[45%] sm:h-3/5 z-10">
+                  {/* Corners */}
+                  <div className="absolute -top-1 -left-1 w-12 h-12 border-t-[6px] border-l-[6px] border-secondary rounded-tl-2xl shadow-[0_0_15px_rgba(4,107,94,0.5)]" />
+                  <div className="absolute -top-1 -right-1 w-12 h-12 border-t-[6px] border-r-[6px] border-secondary rounded-tr-2xl shadow-[0_0_15px_rgba(4,107,94,0.5)]" />
+                  <div className="absolute -bottom-1 -left-1 w-12 h-12 border-b-[6px] border-l-[6px] border-secondary rounded-bl-2xl shadow-[0_0_15px_rgba(4,107,94,0.5)]" />
+                  <div className="absolute -bottom-1 -right-1 w-12 h-12 border-b-[6px] border-r-[6px] border-secondary rounded-br-2xl shadow-[0_0_15px_rgba(4,107,94,0.5)]" />
+                  
+                  {/* The actual hole (transparent) */}
+                  <div className="absolute inset-0 bg-transparent ring-[100vmax] ring-black/50" />
+                  
+                  {/* Scanning Animated Line */}
                   <motion.div 
-                    animate={{ top: ['20%', '80%', '20%'] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-x-0 h-[4px] bg-secondary shadow-[0_0_20px_#046b5e] opacity-80" 
+                    animate={{ top: ['0%', '100%', '0%'] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-x-0 h-1 sm:h-1.5 bg-secondary shadow-[0_0_25px_#9defde,0_0_10px_#046b5e] z-20" 
                   />
+                  
+                  {/* Instruction text inside viewport */}
+                  <div className="absolute -bottom-16 inset-x-0 text-center">
+                    <p className="text-white text-lg sm:text-2xl font-black drop-shadow-lg animate-pulse">
+                      Buscando código...
+                    </p>
+                  </div>
                 </div>
-                <div className="mt-12 px-8 py-6 bg-black/60 backdrop-blur-md rounded-2xl border border-white/20">
-                  <p className="text-white text-[1.5rem] font-bold text-center leading-snug">
-                    Apunte a la factura o código QR
-                  </p>
+              </div>
+              
+              {/* Overlay Cues */}
+              <div className="absolute top-6 left-6 right-6 flex justify-between items-center z-30">
+                <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-white text-xs sm:text-sm font-bold uppercase tracking-widest">En Vivo</span>
                 </div>
               </div>
 
-              <div className="absolute bottom-10 left-0 w-full flex justify-center gap-8 px-6">
-                <button className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center text-white border-2 border-white/30 hover:bg-white/40 transition-all active:scale-90">
-                  <Flashlight className="w-10 h-10" />
+              <div className="absolute bottom-6 sm:bottom-10 left-0 w-full flex justify-center gap-6 sm:gap-12 px-6 z-40">
+                <button className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-white/10 backdrop-blur-2xl flex items-center justify-center text-white border-2 border-white/20 hover:bg-white/30 transition-all active:scale-90 shadow-2xl">
+                  <Flashlight className="w-6 h-6 sm:w-10 sm:h-10" />
                 </button>
                 <button 
                   onClick={handleNext}
-                  className="w-24 h-24 rounded-full bg-white flex items-center justify-center text-primary shadow-xl hover:scale-105 transition-all active:scale-95"
+                  className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-secondary flex items-center justify-center text-white shadow-[0_0_30px_rgba(4,107,94,0.6)] hover:scale-105 transition-all active:scale-95 border-4 border-white/30"
                 >
-                  <div className="w-20 h-20 rounded-full border-4 border-primary/20 flex items-center justify-center">
-                    <Camera className="w-12 h-12" />
-                  </div>
+                  <Camera className="w-8 h-8 sm:w-12 sm:h-12" />
                 </button>
-                <button className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center text-white border-2 border-white/30 hover:bg-white/40 transition-all active:scale-90">
-                  <Keyboard className="w-10 h-10" />
+                <button className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-white/10 backdrop-blur-2xl flex items-center justify-center text-white border-2 border-white/20 hover:bg-white/30 transition-all active:scale-90 shadow-2xl">
+                  <Keyboard className="w-6 h-6 sm:w-10 sm:h-10" />
                 </button>
               </div>
             </div>
@@ -149,9 +167,9 @@ export default function PayBillFlow({ currentScreen, onNavigate, onComplete, onC
                 </div>
               </div>
 
-              <div className="bg-surface-container-low rounded-xl p-8 flex flex-col items-center justify-center text-center">
-                <span className="text-on-surface-variant text-[1.125rem] mb-2 font-semibold">Total a pagar</span>
-                <span className="text-[4rem] font-extrabold text-primary leading-none tracking-tighter">$ 4.250,00</span>
+              <div className="bg-surface-container-low rounded-xl p-4 sm:p-8 flex flex-col items-center justify-center text-center">
+                <span className="text-on-surface-variant text-base sm:text-[1.125rem] mb-1 sm:mb-2 font-semibold">Total a pagar</span>
+                <span className="text-3xl sm:text-5xl md:text-[4rem] font-extrabold text-primary leading-none tracking-tighter">$ 4.250,00</span>
               </div>
             </div>
 
@@ -175,10 +193,10 @@ export default function PayBillFlow({ currentScreen, onNavigate, onComplete, onC
 
             <button 
               onClick={onComplete}
-              className="w-full h-[96px] bg-gradient-to-r from-primary to-primary-container text-white rounded-xl flex items-center justify-center gap-4 active:scale-95 transition-all shadow-xl hover:opacity-90"
+              className="w-full h-16 sm:h-[96px] bg-gradient-to-r from-primary to-primary-container text-white rounded-xl flex items-center justify-center gap-3 sm:gap-4 active:scale-95 transition-all shadow-xl hover:opacity-90"
             >
-              <CreditCard className="w-10 h-10 fill-current" />
-              <span className="text-3xl font-extrabold tracking-tight">Pagar ahora</span>
+              <CreditCard className="w-6 h-6 sm:w-10 sm:h-10 fill-current" />
+              <span className="text-xl sm:text-3xl font-extrabold tracking-tight">Pagar ahora</span>
             </button>
           </motion.div>
         )}
